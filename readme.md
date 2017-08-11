@@ -1,0 +1,2 @@
+# Usage 
+`node index.js`
