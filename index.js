@@ -66,9 +66,9 @@ class Helper {
     var contractName = this.contractName(source);
     var bytecode = compiled["contracts"][`:${contractName}`]["bytecode"];
     var abi = JSON.parse(compiled["contracts"][`:${contractName}`]["interface"]);
-    var contract = new web3.eth.Contract(abi, contractAddress);
-    //console.log(bytecode);
-    return contract;
+    var contract = web3.eth.contract(abi);
+
+    return contract.at(contractAddress);
 
   }
 
