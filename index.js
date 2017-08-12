@@ -28,65 +28,48 @@ class Helper {
     var compiled = solc.compile(source);
     var contractName = this.contractName(source);
     var bytecode = compiled.contracts[[`:${contractName}`]]["bytecode"];
-    web3.eth.getTransactionCount(address).then(
-      function (data) {
-        nonce = data;
-        var rawTx = {
-          nonce: nonce,
-          gasPrice: '0x09184e72a000',
-          gasLimit: '0x271000',
-          data: '0x' + bytecode
-        }
-        var tx = new Tx(rawTx);
-        tx.sign(pkeyx);
-        var serializedTx = tx.serialize().toString('hex');
-        web3.eth.sendSignedTransaction('0x' + serializedTx, function (err, TnxHash) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log('transaction hash:', TnxHash);
-            setTimeout(function () {
-              web3.eth.getTransaction(TnxHash, function (err, result) {
-                if (result.transactionIndex == null) {
-                  console.log('tnx is pending!');
-                } else {
-                  web3.eth.getTransactionReceipt(TnxHash)
-                    .then(function (receipt) {
-                      var contractAddress = receipt.contractAddress;
-                      console.log('contract mined! contract address:', contractAddress);
-                    });
-                }
-              });
-            }, 35000);
-          }
-        });
+    var rawTx = {
+      nonce: web3.eth.getTransactionCount(address),
+      gasPrice: '0x09184e72a000',
+      gasLimit: '0x271000',
+      data: '0x' + bytecode
+    }
+    var tx = new Tx(rawTx);
+    tx.sign(pkeyx);
+    var serializedTx = tx.serialize().toString('hex');
+    web3.eth.sendRawTransaction('0x' + serializedTx, function (err, TnxHash) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('transaction hash:', TnxHash);
+        setTimeout(function () {
+          web3.eth.getTransaction(TnxHash, function (err, result) {
+            if (result.transactionIndex == null) {
+              console.log('tnx is pending!');
+            } else {
+              var receipt = web3.eth.getTransactionReceipt(TnxHash);
+              var contractAddress = receipt.contractAddress;
+              console.log('contract mined! contract address:', contractAddress);
+            }
+          });
+        }, 35000); // wait 35s for the tnx to be mined (the avg block mining time is around 25s)
       }
-    );
+    });
   }
   test() {
     // try things here 
 
   }
 
-  contractObject(source) {
+  contractObject(source, contractAddress) {
     var compiled = solc.compile(source);
     var contractName = this.contractName(source);
     var bytecode = compiled["contracts"][`:${contractName}`]["bytecode"];
     var abi = JSON.parse(compiled["contracts"][`:${contractName}`]["interface"]);
-    var contract = new web3.eth.Contract(abi);
+    var contract = new web3.eth.Contract(abi, contractAddress);
     //console.log(bytecode);
     return contract;
 
-    contract.deploy({
-      data: `0x${bytecode}`
-    }).send({
-      from: address,
-      gasLimit: '0x271000',
-      gasPrice: '0x09184e72a000'
-    })
-      .on('error', function (err) {
-        console.log(err);
-      })
   }
 
 }
