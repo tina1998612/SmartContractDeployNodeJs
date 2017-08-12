@@ -69,7 +69,6 @@ class Helper {
     var contract = web3.eth.contract(abi);
 
     return contract.at(contractAddress);
-
   }
 
 }
