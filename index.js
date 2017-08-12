@@ -71,6 +71,21 @@ class Helper {
     return contract.at(contractAddress);
   }
 
+  etherBalance(contract) {
+    switch (typeof (contract)) {
+      case "object":
+        if (contract.address) {
+          return web3.fromWei(web3.eth.getBalance(contract.address), 'ether').toNumber()
+        } else {
+          return new Error("cannot call getEtherBalance on an object that does not have a property 'address'")
+        }
+        break
+      case "string":
+        return web3.fromWei(web3.eth.getBalance(contract), 'ether').toNumber()
+        break
+    }
+  }
+
 }
 
 
