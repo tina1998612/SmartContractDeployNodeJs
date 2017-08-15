@@ -7,6 +7,7 @@ function init() {
     emptyBlockNum = 0;
     prevTime = 0;
     blockMiningTime = []; // in seconds
+    tnxReceipts = [];
 
     return true;
 }
@@ -22,6 +23,9 @@ function getInfo() {
 
         if (block.transactions.length) {
             tnx = tnx.concat(block.transactions);
+            for (var j = 0; j < block.transactions.length; j++) {
+                tnxReceipts.push(eth.getTransactionReceipt(block.transactions[j]));
+            }
         }
         else emptyBlockNum++;
 
