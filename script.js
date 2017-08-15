@@ -2,7 +2,7 @@ function init() {
 
     blocks = [];
     gasUsed = 0;
-    tnxs = []; // transaction hashes
+    tnxHashes = []; // transaction hashes
     totalDifficulties = [];
     emptyBlockNum = 0;
     prevTime = 0;
@@ -28,7 +28,7 @@ function getInfo() {
         gasUsed += block.gasUsed;
 
         if (block.transactions.length) {
-            tnxs = tnxs.concat(block.transactions);
+            tnxsHashes = tnxHashes.concat(block.transactions);
             for (var j = 0; j < block.transactions.length; j++) {
                 tnx = eth.getTransactionReceipt(block.transactions[j]);
                 tnx_data = {};
