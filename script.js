@@ -17,7 +17,13 @@ function getInfo() {
 
     for (var i = blocks.length; i <= eth.blockNumber; i++) {
         block = eth.getBlock(i);
-        blocks.push(block);
+        block_data = {};
+        block_data.no = block.number;
+        block_data.miner = block.miner;
+        block_data.extraData = block.extraData;
+        block_data.gasUsed = block.gasUsed;
+        block_data.tnxCnt = block.transactions.length;
+        blocks.push(block_data);
 
         gasUsed += block.gasUsed;
 
