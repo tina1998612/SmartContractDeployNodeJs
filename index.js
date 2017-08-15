@@ -57,8 +57,9 @@ class Helper {
     });
   }
   test() {
-    // try things here 
-
+    // try things here
+    var code = web3.eth.getCode('0xB0D111C887a7783290881D07491904A3b012A117');
+    console.log(code);
   }
 
   contractObject(source, contractAddress) {
