@@ -2,7 +2,7 @@ function init() {
 
     blocks = [];
     gasUsed = 0;
-    tnx = []; // transaction hashes
+    tnxs = []; // transaction hashes
     totalDifficulties = [];
     emptyBlockNum = 0;
     prevTime = 0;
@@ -22,9 +22,17 @@ function getInfo() {
         gasUsed += block.gasUsed;
 
         if (block.transactions.length) {
-            tnx = tnx.concat(block.transactions);
+            tnxs = tnxs.concat(block.transactions);
             for (var j = 0; j < block.transactions.length; j++) {
-                tnxReceipts.push(eth.getTransactionReceipt(block.transactions[j]));
+                tnx = eth.getTransactionReceipt(block.transactions[j]);
+                tnx_data = {};
+                tnx_data.blockNumber = tnx.blockNumber;
+                tnx_data.transactionHash = tnx.transactionHash;
+                tnx_data.isContract = tnx.contractAddress == null ? false : true;
+                tnx_data.from = tnx.from;
+                tnx_data.to = tnx.to;
+                tnx_data.gasUsed = tnx.gasUsed;
+                tnxReceipts.push(tnx_data);
             }
         }
         else emptyBlockNum++;
