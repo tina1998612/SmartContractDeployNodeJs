@@ -12,7 +12,7 @@
 5. solc: ^0.4.15,
 6. web3: 0.20.1
 
-# Get blockchain info script: `script.js`
+# Get blockchain info script (script.js)
 The script can be loaded in the geth console by using `loadScript('script_path')`
 ## Data that can be retrieved: 
 1. blocks: an array containing info of all current blocks 
