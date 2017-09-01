@@ -49,7 +49,7 @@ class Helper {
               console.log('contract mined! contract address:', contractAddress);
             }
           });
-        }, 35000); // wait 35s for the tnx to be mined (the avg block mining time is around 25s)
+        }, 30000); // wait 35s for the tnx to be mined (the avg block mining time is around 25s)
       }
     });
   }
