@@ -3,14 +3,10 @@ var Web3 = require('web3');
 var solc = require('solc');
 var fs = require('fs');
 var repl = require('repl');
-var lodash = require('lodash');
 var SolidityFunction = require("web3/lib/web3/function")
 var web3 = new Web3(
   new Web3.providers.HttpProvider('https://rinkeby.infura.io/')
 );
-var address = "0xd98e75cc85ae6f7e8bb1b382ebdab27d7e44bc30";
-var pkeyx = new Buffer("609b3129d65126571d2319ce71e257aa76d4b556f8d18d95788a1247dc554436", 'hex');
-var nonce;
 
 class Helper {
 
@@ -24,10 +20,11 @@ class Helper {
     return fs.readFileSync(path, 'utf8');
   }
 
-  sendRawTnx(source) {
+  sendRawTnx(source, address, pkey) {
     var compiled = solc.compile(source);
     var contractName = this.contractName(source);
     var bytecode = compiled.contracts[[`:${contractName}`]]["bytecode"];
+    var pkeyx = new Buffer(pkey, 'hex');
     var rawTx = {
       nonce: web3.eth.getTransactionCount(address),
       gasPrice: '0x09184e72a000',
@@ -56,11 +53,6 @@ class Helper {
       }
     });
   }
-  test() {
-    // try things here
-    var code = web3.eth.getCode('0xB0D111C887a7783290881D07491904A3b012A117');
-    console.log(code);
-  }
 
   contractObject(source, contractAddress) {
     var compiled = solc.compile(source);
@@ -76,21 +68,23 @@ class Helper {
     switch (typeof (contract)) {
       case "object":
         if (contract.address) {
-          return web3.fromWei(web3.eth.getBalance(contract.address), 'ether').toNumber()
+          return web3.fromWei(web3.eth.getBalance(contract.address), 'ether').toNumber();
         } else {
-          return new Error("cannot call getEtherBalance on an object that does not have a property 'address'")
+          return new Error("cannot call getEtherBalance on an object that does not have a property 'address'");
         }
         break
       case "string":
-        return web3.fromWei(web3.eth.getBalance(contract), 'ether').toNumber()
+        return web3.fromWei(web3.eth.getBalance(contract), 'ether').toNumber();
         break
     }
   }
 
+ test() {
+    // try things here
+    console.log("test");
+  }
 }
 
-
-source = "contract test { function hi() public payable {}}";
 helper = new Helper();
 
 repl.start({});
