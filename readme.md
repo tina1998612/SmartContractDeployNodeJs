@@ -35,4 +35,4 @@ helper.etherBalance(c) // should return 0 if no ether is sent to the contract ad
 2. fs: 0.0.1-security
 3. repl: ^0.1.3
 4. solc: ^0.4.15
-5. web3: 0.20.1 // the newest version is too unstable 
+5. web3: 0.20.1 (the newest version is too unstable)
