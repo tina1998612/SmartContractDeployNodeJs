@@ -27,6 +27,7 @@ helper.sendRawTnx(source, address, pkey) // will return the contract address aft
 c = helper.contractObject(source, 'contract_address') // paste the contract address you just get
 c.hi.call().toNumber() 
 helper.etherBalance(c) // should return 0 if no ether is sent to the contract address
+// press 'Ctrl+D' to exit
 ```
 
 # Dependencies version
