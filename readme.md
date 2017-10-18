@@ -20,8 +20,8 @@ You can visit the block explorer [etherscan](https://rinkeby.etherscan.io/addres
 ```javascript
 node index
 source = "contract test { function hi() public returns (uint256) { return 123; }}"
-address = "0xd98e75cc85ae6f7e8bb1b382ebdab27d7e44bc30"
-pkey = "609b3129d65126571d2319ce71e257aa76d4b556f8d18d95788a1247dc554436"
+address = <your_public_key>
+pkey = <your_private_key>
 helper.sendRawTnx(source, address, pkey) // will return the contract address after mined 
 // after you see 'contract mined!', press 'Ctrl+C' to return to the console 
 c = helper.contractObject(source, 'contract_address') // paste the contract address you just get
