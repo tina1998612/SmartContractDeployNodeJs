@@ -16,7 +16,7 @@ Note: To simplify the problem, the waiting time of contract mining is hardcoded 
 
 # Sample use case
 Just paste the following code line by line. <br>
-You can visit the block explorer [etherscan](https://rinkeby.etherscan.io/address/0xd98e75cc85ae6f7e8bb1b382ebdab27d7e44bc30) to see what happened
+You can visit the block explorer [etherscan](https://rinkeby.etherscan.io/address/0xd98e75cc85ae6f7e8bb1b382ebdab27d7e44bc30) to see all the transactions and get a clearer understanding of what is happening. 
 ```javascript
 node index
 source = "contract test { function hi() public returns (uint256) { return 123; }}"
