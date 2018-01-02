@@ -1,5 +1,5 @@
 # Overview
-This script can be used to deploy smart contracts on any networks (ex. testnets, private net) using the most primitive way written in pure NodeJS. All you need is your wallet address and your corresponding private key to sign the transactions for the contract creation. Here we use the rinkeby testnet, but you can always change it as you wish just by modifying `Web3.providers.HttpProvider` (line 8).
+This script can be used to deploy smart contracts on any networks (ex. testnets, private net) using the most primitive way written in pure NodeJS. All you need is your contract code, wallet address and your corresponding private key to sign the transactions for the contract creation. Here we use the rinkeby testnet, but you can always change it as you wish just by modifying `Web3.providers.HttpProvider` (line 8).
 
 # Usage 
 1. run `node index` to start the repl 
